@@ -19,7 +19,7 @@ module.exports = function parse(fileName) {
     returnData.push(entriesData[index].split(','));
   }
 
-  console.log(returnData);
+  // console.log(returnData);
   return returnData;
 };
 
