@@ -23,7 +23,6 @@ for (let index = 1; index < movingData.length ; index++) {
   // console.log('TICKETTYPE: ' + movingData[index][ticketTypeIndex]); //tickettype, need to get "photo seperate"
   // console.log('TOTALPAID: ' + movingData[index][totalPaidIndex]); //total paid, need to seperate 'photo' income, then add
   // console.log('TOTALPAID: '+ movingData[index][totalPaidIndex]); //need to add all values
-  // console.log('\n\n\n\n\n\n');
 
   violationTotalIncome = violationTotalIncome + Number(movingData[index][totalPaidIndex]);
 
@@ -41,7 +40,6 @@ for (let index = 1; index < movingData.length ; index++) {
     }
   }
 }
-
 // this figures out which code has the highest frequency
 let myKeys = Object.keys(frequency);
 // console.log(myKeys);
@@ -57,17 +55,22 @@ myKeys.forEach(function findHighestValue(tickettype) {
   }
 });
 
-console.log(maxTicketType);
-console.log(maxTicketTypeCount);
+// console.log(maxTicketType); //highest number frequency
+// console.log(maxTicketTypeCount); //ticket type that matches frequency
 
+// What was the total income from all moving violations?
+console.log('Total income of all moving violations: ', violationTotalIncome);
 
-// console.log('Total income of all moving violations: ', violationTotalIncome);
-// console.log('Average fine amount: ', averageFineAmount);
-// console.log('Photo citations income: ', totalPhotoIncome);
-// console.log('frequency of ticket types: ', frequency);
+// What is the average fine amount?
+console.log('Average fine amount: ', averageFineAmount);
 
-// console.log('Most common violation type: ', );
+// What was the total income from photo citations (tickettype = "Photo")?
+console.log('Photo citations income: ', totalPhotoIncome);
+
+console.log('frequency of ticket types: ', frequency);
+
 // What was the most common violation type for a moving violation?
+console.log('Most common violation type: ', maxTicketType);
 
 //index 0 of my moving data
 // [ 'X','Y','OBJECTID','ROW_','LOCATION','ADDRESS_ID','STREETSEGID','XCOORD',

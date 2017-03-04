@@ -1,49 +1,60 @@
 
+let dataParcer = require('./parse.js'); //if there is a problem with data, put outside in function
+let parkingData = dataParcer('./simple_data/parking_feb_2016.csv'); //this calls data function to return array of arrays
+
+
+
+let items = ['VIOLATION_CODE', 'RP_PLATE_STATE'];
+
+let violationCodeIndex = parkingData[0].indexOf('VIOLATION_CODE');
+let plateIndex = parkingData[0].indexOf('RP_PLATE_STATE');
+
+let frequency = {};
+
+
 //change to module.exports later
-function violations() {
-  let dataParcer = require('./parse.js'); //if there is a problem with data, put outside in function
-  let parkingData = dataParcer('./simple_data/parking_feb_2016.csv'); //this calls data function to return array of arrays
+for (let index = 1; index < parkingData.length -1 ; index++) { //go back and add if statement to get rid of undefined values
+  // console.log('VIOLATIONCODE: ', parkingData[index][violationCodeIndex]); //violation type
+  // console.log('RP_PLATE_STATE: ', parkingData[index][plateIndex]); //license plate
 
-console.log(parkingData);
-
-  let userMonth;
-  let userDate;
-
-  let months = ["January", "February", "March", "April", "May"];
-
-toString
-uppercase and lowercase
-
-
-
-
-
-  // return {};
-
-  // return something like this
-  // {
-  //   "some-specific-identifier in the parking file": "value of what we are looking for",
-  //   "some-other-data": 19
-  // }
+  if (parkingData[index][violationCodeIndex] !== '') {
+    if (!frequency[parkingData[index][violationCodeIndex]]) { //have I seen this code?
+      frequency[parkingData[index][violationCodeIndex]] = 1; //'no' this  the first time, so i will set it to one -----is saying that when I see T120, it sounds as one, and goes into the object
+    } else {
+      frequency[parkingData[index][violationCodeIndex]]++;
+    }
+  }
 }
 
-violations();
-// ;
+// this figures out which code has the highest frequency
+let myKeys = Object.keys(frequency);
+// console.log(myKeys);
+
+let maxTicketTypeCount = 0;
+let maxTicketType;
+
+myKeys.forEach(function findHighestValue(tickettype) {
+  // console.log( frequency[key] );
+  if (frequency[tickettype] > maxTicketTypeCount) {
+    maxTicketTypeCount = frequency[tickettype];
+    maxTicketType = tickettype;
+  }
+});
+
+let numberOfParkingTickets = Object.keys(frequency).length;
 
 
-// For any given year and month of parking data, provide the following
-// analysis:
-//
+// console.log('frequency of ticket types: ', frequency);
+
+// What was the most common violation type for a parking violation?
+console.log('Most common violation type: ', maxTicketType);
+
 // How many different types of parking tickets were issued?
-// What was the most common violation type for a parking ticket?
+console.log('Number of different types of parking tickets: ', numberOfParkingTickets);
+
 // What state license plate gets the most tickets?
 
 
-
-// Each module should export a single function which accepts a year
-// and month name (not a filename) as its arguments. The function
-// must return an object with the answers to the data analysis
-// questions below.
-//
-// For example, giving 2016 and May to the parking module function
-// would return an object like:
+// X, Y, OBJECTID, ROWID_, DAY_OF_WEEK, HOLIDAY, WEEK_OF_YEAR, MONTH_OF_YEAR, ISSUE_TIME,
+// VIOLATION_CODE, VIOLATION_DESCRIPTION, LOCATION, RP_PLATE_STATE, BODY_STYLE,
+// ADDRESS_ID, STREETSEGID, XCOORD, YCOORD, TICKET_ISSUE_DATE
